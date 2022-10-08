@@ -296,13 +296,7 @@ static void parse_auxv(auxv_t const auxv[])
             break;
         }
         case AT_SEL4_BOOT_INFO: {
-            seL4_BootInfo *bootinfo = auxv[i].a_un.a_ptr;
-            if (bootinfo == SEL4RUNTIME_NULL) {
-                break;
-            }
-            env.bootinfo = bootinfo;
-            env.initial_thread_ipc_buffer = bootinfo->ipcBuffer;
-            env.initial_thread_tcb = seL4_CapInitThreadTCB;
+            env.bootinfo = auxv[i].a_un.a_ptr;
             break;
         }
         case AT_SEL4_IPC_BUFFER_PTR: {

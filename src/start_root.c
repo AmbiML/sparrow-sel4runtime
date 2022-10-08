@@ -52,7 +52,7 @@ void __sel4_start_root(seL4_BootInfo *boot_info)
     struct {
         char const *const argv[2];
         char const *const envp[2];
-        auxv_t auxv[7];
+        auxv_t auxv[8];
     } info = {
         .argv = {
             "rootserver",
@@ -78,6 +78,9 @@ void __sel4_start_root(seL4_BootInfo *boot_info)
             }, {
                 .a_type = AT_SEL4_BOOT_INFO,
                 .a_un.a_ptr = boot_info,
+            }, {
+                .a_type = AT_SEL4_IPC_BUFFER_PTR,
+                .a_un.a_ptr = boot_info->ipcBuffer,
             }, {
                 .a_type = AT_SEL4_TCB,
                 .a_un.a_val = seL4_CapInitThreadTCB,
