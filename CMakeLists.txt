@@ -33,6 +33,13 @@ config_string(
     16384
     UNQUOTE
 )
+config_option(
+    Sel4RuntimeUseBuiltins
+    SEL4RUNTIME_USE_BUILTINS
+    "Use compilter __builtin_* functions when possible to reduce code size"
+    DEFAULT
+    ON
+)
 add_config_library(sel4runtime "${configure_string}")
 
 list(APPEND crt_files crt/sel4_arch/${KernelSel4Arch}/crti.S crt/sel4_arch/${KernelSel4Arch}/crtn.S)

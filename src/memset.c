@@ -22,10 +22,14 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <sel4runtime/gen_config.h>
 #include "util.h"
 
 void *__sel4runtime_memset(void *dest, int c, sel4runtime_size_t n)
 {
+#if CONFIG_SEL4RUNTIME_USE_BUILTINS
+    return __builtin_memset(dest, c, n);
+#else
     unsigned char *s = dest;
     sel4runtime_size_t k;
 
@@ -120,4 +124,5 @@ void *__sel4runtime_memset(void *dest, int c, sel4runtime_size_t n)
 #endif
 
     return dest;
+#endif  // CONFIG_SEL4RUNTIME_USE_BUILTINS
 }

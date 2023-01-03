@@ -22,10 +22,14 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <sel4runtime/gen_config.h>
 #include "util.h"
 
 void *__sel4runtime_memcpy(void *restrict dest, const void *restrict src, sel4runtime_size_t n)
 {
+#if CONFIG_SEL4RUNTIME_USE_BUILTINS
+    return __builtin_memcpy(dest, src, n);
+#else
     unsigned char *d = dest;
     const unsigned char *s = src;
 
@@ -172,4 +176,5 @@ void *__sel4runtime_memcpy(void *restrict dest, const void *restrict src, sel4ru
         *d++ = *s++;
     }
     return dest;
+#endif  // CONFIG_SEL4RUNTIME_USE_BUILTINS
 }
